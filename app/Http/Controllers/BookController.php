@@ -22,23 +22,21 @@ class BookController extends Controller
         return response($book, Response::HTTP_CREATED);
     }
 
-    public function show($id)
+    public function show(Book $book)
     {
-        return Book::find($id);
+        return $book;
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Book $book)
     {
-        $book = Book::find($id);
-
         $book->update($request->only('title', 'release_year', 'description'));
 
         return response($book, Response::HTTP_ACCEPTED);
     }
 
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        Book::destroy($id);
+        $book->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
