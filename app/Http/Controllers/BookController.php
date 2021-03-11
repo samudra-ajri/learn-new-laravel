@@ -17,10 +17,10 @@ class BookController extends Controller
     public function store(BookStoreRequest $request)
     {
         $book = new Book();
-        $book->fill($request->validate());
+        $book->fill($request->validated());
         $book->save();
 
-        return response($book, Response::HTTP_CREATED);
+        return $book;
     }
 
     public function show(Book $book)
@@ -32,13 +32,13 @@ class BookController extends Controller
     {
         $book->update($request->only('title', 'release_year', 'description'));
 
-        return response($book, Response::HTTP_ACCEPTED);
+        return $book;
     }
 
     public function destroy(Book $book)
     {
         $book->delete();
 
-        return response(null, Response::HTTP_NO_CONTENT);
+        return null;
     }
 }
