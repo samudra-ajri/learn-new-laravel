@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookStoreRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,11 +14,11 @@ class BookController extends Controller
         return Book::all();
     }
 
-    public function store(Request $request)
+    public function store(BookStoreRequest $request)
     {
-        $book = Book::create(
-            $request->only('title', 'release_year', 'description')
-        );
+        $book = new Book();
+        $book->fill($request->validate());
+        $book->save();
 
         return response($book, Response::HTTP_CREATED);
     }
