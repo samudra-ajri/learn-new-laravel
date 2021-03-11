@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookStoreRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class BookController extends Controller
 {
@@ -38,7 +37,5 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-
-        return null;
     }
 }
