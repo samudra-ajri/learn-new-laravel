@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class BookSeeder extends Seeder
@@ -14,24 +15,41 @@ class BookSeeder extends Seeder
      */
     public function run()
     {
-        Book::factory(20)->create();
+        $books = Book::factory(20)->create();
 
-        Book::factory()->create([
-            'title' => 'Book 1 Seed',
+        $scienceBook = Book::factory()->create([
+            'title' => 'Science',
             'release_year' => 2018,
-            'description' => 'Book 1 Seed description',
+            'description' => 'Science description',
+            'author_id' => 1,
         ]);
 
-        Book::factory()->create([
-            'title' => 'Book 2 Seed',
+        $techBook = Book::factory()->create([
+            'title' => 'Technology',
             'release_year' => 2019,
-            'description' => 'Book 2 Seed description',
+            'description' => 'Technology description',
+            'author_id' => 2,
         ]);
 
-        Book::factory()->create([
-            'title' => 'Book 3 Seed',
+        $misteryBook = Book::factory()->create([
+            'title' => 'Mistery',
             'release_year' => 2020,
-            'description' => 'Book 3 Seed description',
+            'description' => 'Mistery description',
+            'author_id' => 3,
         ]);
+
+        $categories = Category::all();
+
+        foreach ($books as $book) {
+            $book->categories()->attach($categories->pluck('id'));
+            $book->categories()->detach(rand(1, 3));
+        }
+
+        $scienceBook->categories()->attach([1]);
+
+        $techBook->categories()->attach([2]);
+
+        $misteryBook->categories()->attach([3]);
+
     }
 }
