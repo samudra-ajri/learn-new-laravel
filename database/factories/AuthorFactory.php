@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Model;
+use App\Models\Author;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AuthorFactory extends Factory
@@ -12,7 +12,7 @@ class AuthorFactory extends Factory
      *
      * @var string
      */
-    protected $model = Model::class;
+    protected $model = Author::class;
 
     /**
      * Define the model's default state.

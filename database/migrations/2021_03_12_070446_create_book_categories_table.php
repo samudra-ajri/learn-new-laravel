@@ -15,11 +15,8 @@ class CreateBookCategoriesTable extends Migration
     {
         Schema::create('book_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('book_id');
-            $table->unsignedBigInteger('category_id');
-
-            $table->foreign(['book_id'])->references('id')->on('books')->onDelete('CASCADE');
-            $table->foreign(['category_id'])->references('id')->on('categories')->onDelete('CASCADE');
+            $table->foreignId('book_id')->constrained();
+            $table->foreignId('category_id')->constrained();
         });
     }
 
