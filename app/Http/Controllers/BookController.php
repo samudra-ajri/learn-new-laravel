@@ -11,7 +11,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        return BookResource::collection(Book::all());
+        return BookResource::collection(Book::with('author')->all());
     }
 
     public function store(BookStoreRequest $request)
@@ -25,12 +25,12 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        return new BookResource($book);
+        return new BookResource($book->with('author'));
     }
 
     public function update(Request $request, Book $book)
     {
-        $book->update($request->only('title', 'release_year', 'description'));
+        $book->update($request->only('title', 'release_year', 'description', 'author_id'));
 
         return new BookResource($book);
     }
