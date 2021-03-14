@@ -17,7 +17,7 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->string('title')->index();
             $table->unsignedInteger('release_year'); //for positive integer
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

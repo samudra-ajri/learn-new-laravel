@@ -31,7 +31,7 @@ class AuthorController extends Controller
 
     public function update(AuthorUpdateRequest $request, Author $author)
     {
-        $author->update($request->validated());
+        $author->update($request->only('first_name', 'last_name', 'email'));
 
         return new AuthorResource($author);
     }

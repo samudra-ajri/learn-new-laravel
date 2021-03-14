@@ -14,7 +14,7 @@ class AddAuthorIdToBooksTable extends Migration
     public function up()
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->foreignId('author_id')->constrained();
+            $table->foreignId('author_id')->constrained()->onDelete('cascade');;
         });
     }
 
