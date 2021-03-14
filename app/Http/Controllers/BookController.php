@@ -11,7 +11,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        return BookResource::collection(Book::with('author')->all());
+        return BookResource::collection(Book::with('author')->paginate(10));
     }
 
     public function store(BookStoreRequest $request)
@@ -20,19 +20,19 @@ class BookController extends Controller
         $book->fill($request->validated());
         $book->save();
 
-        return new BookResource($book);
+        return new BookResource($book->load('author'));
     }
 
     public function show(Book $book)
     {
-        return new BookResource($book->with('author'));
+        return new BookResource($book->load('author'));
     }
 
     public function update(Request $request, Book $book)
     {
         $book->update($request->only('title', 'release_year', 'description', 'author_id'));
 
-        return new BookResource($book);
+        return new BookResource($book->load('author'));
     }
 
     public function destroy(Book $book)
