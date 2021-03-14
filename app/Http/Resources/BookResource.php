@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Category;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookResource extends JsonResource
@@ -19,6 +20,7 @@ class BookResource extends JsonResource
             'title' => $this->title,
             'release_year' => $this->release_year,
             'description' => $this->description,
+            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'author' => new AuthorResource($this->whenLoaded('author')),
         ];
     }

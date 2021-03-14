@@ -11,7 +11,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        return BookResource::collection(Book::with('author')->paginate(10));
+        return BookResource::collection(Book::with(['author', 'categories'])->paginate(10));
     }
 
     public function store(BookStoreRequest $request)
