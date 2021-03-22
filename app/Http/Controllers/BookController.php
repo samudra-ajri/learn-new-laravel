@@ -20,19 +20,21 @@ class BookController extends Controller
         $book->fill($request->validated());
         $book->save();
 
-        return new BookResource($book->load('author'));
+        $book->categories()->attach($request->input('category_ids'));
+
+        return new BookResource($book->load(['author', 'categories']));
     }
 
     public function show(Book $book)
     {
-        return new BookResource($book->load('author'));
+        return new BookResource($book->load(['author', 'categories']));
     }
 
     public function update(Request $request, Book $book)
     {
         $book->update($request->only('title', 'release_year', 'description', 'author_id'));
 
-        return new BookResource($book->load('author'));
+        return new BookResource($book->load(['author', 'categories']));
     }
 
     public function destroy(Book $book)
